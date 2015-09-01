@@ -2,7 +2,7 @@
 Summary:	Journey is a router. It routes requests
 Name:		ruby-%{pkgname}
 Version:	1.0.4
-Release:	2
+Release:	3
 License:	MIT
 Group:		Development/Languages
 Source0:	http://rubygems.org/gems/%{pkgname}-%{version}.gem
