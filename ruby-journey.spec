@@ -2,7 +2,7 @@
 Summary:	Journey is a router. It routes requests
 Name:		ruby-%{pkgname}
 Version:	1.0.4
-Release:	3
+Release:	4
 License:	MIT
 Group:		Development/Languages
 Source0:	http://rubygems.org/gems/%{pkgname}-%{version}.gem
@@ -46,23 +46,22 @@ Dokumentacji w formacie ri dla %{pkgname}.
 %build
 # write .gemspec
 %__gem_helper spec
+mv %{pkgname}-%{version}*.gemspec %{pkgname}-%{version}.gemspec
 
 rdoc --ri --op ri lib
 rdoc --op rdoc lib
-# rm -r ri/NOT_THIS_MODULE_RELATED_DIRS
 rm ri/created.rid
+rm -rf ri/Hash ri/Rack ri/lib
+rm -rf rdoc/Hash.html rdoc/Rack.html rdoc/lib rdoc/created.rid
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_ridir},%{ruby_rdocdir}}
+install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_specdir},%{ruby_ridir},%{ruby_rdocdir}/%{name}-%{version}}
 
 cp -a lib/* $RPM_BUILD_ROOT%{ruby_vendorlibdir}
-
 cp -a ri/* $RPM_BUILD_ROOT%{ruby_ridir}
-install -d $RPM_BUILD_ROOT%{ruby_rdocdir}/%{name}-%{version}
 cp -a rdoc/* $RPM_BUILD_ROOT%{ruby_rdocdir}/%{name}-%{version}
 
-install -d $RPM_BUILD_ROOT%{ruby_specdir}
 cp -p %{pkgname}-%{version}.gemspec $RPM_BUILD_ROOT%{ruby_specdir}
 
 %clean
